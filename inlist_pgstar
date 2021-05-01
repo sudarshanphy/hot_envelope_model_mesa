@@ -1,0 +1,60 @@
+&pgstar
+
+  ! MESA uses PGPLOT for live plotting and gives the user a tremendous
+  ! amount of control of the presentation of the information.
+
+
+         History_Panels1_win_flag = .true.
+         History_Panels1_win_width = 12
+         History_Panels1_win_aspect_ratio = 0.7 ! aspect_ratio = height/width
+
+         History_Panels1_xaxis_name = 'star_age'
+         History_Panels1_xaxis_log = .true. ! show log10 of abs value
+         !History_Panels1_xmin = 2.7d0 
+         !
+         History_Panels1_other_yaxis_name(1) = 'log_Teff'
+
+         History_Panels1_other_yaxis_name(2) = 'log_Teff'
+
+         History_Panels1_yaxis_name(3) = 'log_Lnuc' 
+         History_Panels1_ymin(3) = -1d0 ! only used if /= -101d0
+
+         History_Panels1_other_yaxis_name(3) = 'mass_loc_of_max_eps_nuc'
+         
+
+
+
+         Grid2_win_flag = .true.
+         Grid2_num_cols = 5 ! divide plotting region into this many equal width cols
+         Grid2_win_width = 10
+         Grid2_win_aspect_ratio = 0.6 ! aspect_ratio = height/width
+         Grid2_xleft = 0.05 ! fraction of full window width for margin on left
+         Grid2_xright = 0.98 ! fraction of full window width for margin on right
+         Grid2_ybot = 0.05 ! fraction of full window width for margin on bottom
+         Grid2_ytop = 0.95 ! fraction of full window width for margin on top
+         Grid2_plot_name(1) = 'Abundance'
+         Abundance_xaxis_name = 'mass' 
+         Abundance_log_mass_frac_min = -4
+         Abundance_legend_max_cnt = 0
+         Grid2_plot_name(5) = 'TRho_Profile'
+         show_TRho_Profile_legend = .true.
+         Grid2_plot_colspan(5) = 3 ! plot spans this number of columns 
+         Grid2_plot_colspan(4) = 5 ! plot spans this number of columns 
+
+
+
+
+
+         Profile_Panels1_win_flag = .true.
+         Profile_Panels1_num_panels = 2
+         Profile_Panels1_yaxis_name(1) = 'eta'
+         Profile_Panels1_other_yaxis_name(1) = 'extra_heat'
+         Profile_Panels1_yaxis_name(2) = 'temperature'
+         Profile_Panels1_other_yaxis_name(2) = 'radius_cm'
+         Profile_Panels1_xaxis_name = 'mass'
+         Profile_Panels1_xmin = 0.0 ! only used if /= -101d0
+         Profile_Panels1_xmax = 0.8d0 ! only used if /= -101d0
+
+
+
+/ ! end of pgstar namelist

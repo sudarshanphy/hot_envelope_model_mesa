@@ -1,0 +1,108 @@
+
+&star_job
+
+!-------------------------------------------------------------------------------
+! restart from t = 0
+!-------------------------------------------------------------------------------
+      set_initial_age = .true.
+      initial_age = 0
+
+!-------------------------------------------------------------------------------
+! flag to set initial uniform composition in controls
+! turn this off when restarting from the relaxed model
+!-------------------------------------------------------------------------------
+      relax_initial_to_xaccrete = .false.
+
+!-------------------------------------------------------------------------------
+! save the relaxed model
+! after you're confident the model is relaxed,
+!  uncomment and choose a model number (e.g. blah)
+! restart from a photostep before that model number (./re xblah-1)
+!  and let it run until it saves the model as your specified filename
+! then, do a full restart (./rn)
+!-------------------------------------------------------------------------------
+!     save_model_number = 120        ! 251
+!     save_model_filename = '0.8.mod'   ! '0.5.mod'
+
+!-------------------------------------------------------------------------------
+! restart from the relaxed model filename
+!-------------------------------------------------------------------------------
+        load_saved_model = .true.
+        saved_model_name = '0.8.mod'   ! '0.5.mod'
+
+!-------------------------------------------------------------------------------
+! turn pgstar on and stop before terminating
+!-------------------------------------------------------------------------------
+      pgstar_flag = .true.
+      pause_before_terminate = .true.
+
+/ ! end of star_job namelist
+
+
+&controls
+
+!-------------------------------------------------------------------------------
+! some time and spatial resolution controls
+! adjust these for a convergence study
+! the current values are quite coarse so that the run will complete in < 10 min
+!-------------------------------------------------------------------------------
+      varcontrol_target = 1d-2
+      mesh_delta_coeff = 4
+
+!-------------------------------------------------------------------------------
+! set a low minimum timestep in case the
+!  relaxation procedure wants to go to a small dt
+!-------------------------------------------------------------------------------
+      min_timestep_limit = 1d-15
+
+!-------------------------------------------------------------------------------
+! use a 0.5 Msol model
+!-------------------------------------------------------------------------------
+      initial_mass = 0.8   ! 0.5
+
+!-------------------------------------------------------------------------------
+! set the relaxation parameters
+! x_ctrl(1): Mtransition in Msol units
+! x_ctrl(2): high entropy
+! x_ctrl(3): low entropy
+! x_ctrl(4): etatransition
+!-------------------------------------------------------------------------------
+      x_ctrl(1) = 0.45    ! 0.45
+      x_ctrl(2) = 10d8   ! 10d8
+      x_ctrl(3) = 2d8    ! 2d8
+      x_ctrl(4) = -1d0   ! -1d0
+
+
+!-------------------------------------------------------------------------------
+! set initial uniform composition to pure helium
+!-------------------------------------------------------------------------------
+      accrete_given_mass_fractions = .false.
+      num_accretion_species = 1
+      accretion_species_id(1) = 'he4'
+      accretion_species_xa(1) = 1.0
+
+!-------------------------------------------------------------------------------
+! use the other_energy routine to adjust the entropy profile
+! turn off burning and neutrino cooling during the relaxation phase
+! return things to normal for the actual run
+!-------------------------------------------------------------------------------
+      use_other_energy = .false.
+      max_abar_for_burning = 199
+      non_nuc_neu_factor = 1
+
+
+!-------------------------------------------------------------------------------
+! end the run when the WD has cooled
+! can't turn this on too early; need to be in the WD cooling phase
+!-------------------------------------------------------------------------------
+!      log_center_temp_lower_limit = 7.30103d0
+
+
+!-------------------------------------------------------------------------------! some controls for profile file output
+!------------------------------------------------------------------------------
+!       profile_interval = 50
+!       priority_profile_interval = 1000
+!       max_num_profile_models = 100
+
+
+/ ! end of controls namelist
